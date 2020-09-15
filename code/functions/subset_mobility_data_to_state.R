@@ -1,0 +1,24 @@
+# Script to read in a csv file of Apple's mobility data from covid 2020,
+# and subset the data to rows of data from one subregion (e.g. state).
+
+# Adam Zimmerman, September 14, 2020
+# adam.eric.zimmerman@gmail.com
+
+# create a function to subset any subregion/US state out of the full dataset
+# this should also create an output CSV with the name of the subregion
+subset_mobility_data_to_state <- function(input_filename, subregion) {
+    # read in complete mobility dataset
+  all_covid_data <- read.csv(input_filename)
+  # check that subsetted data has data in it
+  subregion_data <- all_covid_data[all_covid_data$sub.region == subregion, ]
+  if (nrow(subregion_data == 0)) {
+    stop("ERROR: No rows matching subregion query.")
+  }
+  # subset all data to single sub.region (column 5)
+  output_data <- all_covid_data[all_covid_data$sub.region == subregion, ]
+
+  # save file
+  full_output_path <- paste0("output/", "covid_mobility_data_", subregion,
+                             ".csv", sep = "")
+  write.csv(output_data, file = full_output_path)
+}
