@@ -12,18 +12,18 @@ library("readr")
 count_cities_counties <- function(input_filename) {
 
   # load the dataset from the previous script
-  state_data <- read_csv(input_filename)
+  subregion_data <- read_csv(input_filename)
 
   # identify state/subregion for saved file
-  subregion <- state_data$sub.region[1]
+  subregion <- subregion_data$sub.region[1]
 
   # defensive programming check: do headers contain "geo_type"?
-  if ("geo_type" %in% names(state_data) == 0) {
+  if ("geo_type" %in% names(subregion_data) == 0) {
     stop("Imported CSV is missing correct headers; please review.")
   }
 
   # filter data with dplyr chains
-  count_cities_counties_transit <- state_data %>%
+  count_cities_counties_transit <- subregion_data %>%
     select(geo_type, region, transportation_type) %>%
     group_by(geo_type, transportation_type) %>%
     tally()
