@@ -9,8 +9,13 @@ library("dplyr")
 
 # We want to count cities and counties that have Apple mobility data in a state
 
-# load the dataset from the previous script
-input_file_name <- "output/covid_mobility_data_Nevada.csv"
+# set folder to check, e.g. /output/
+folder = "output/"
+
+
+for subregion_data in 
+
+# load the datasets
 state_data <- read.csv(input_file_name)
 
 # starting off with dplyr chains
