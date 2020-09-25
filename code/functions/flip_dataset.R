@@ -1,5 +1,5 @@
-# function to flip to read in a csv file of Apple's mobility data from covid 2020,
-# and flip the dates from columns to rows.
+# function to flip to read in a csv file of Apple's mobility data from covid
+# 2020, and flip the dates from columns to rows.
 
 # Adam Zimmerman, September 25, 2020
 # adam.eric.zimmerman@gmail.com
@@ -14,7 +14,7 @@ library("tools")
 input_filename <- "data/raw_data/applemobilitytrends-2020-09-19.csv"
 
 
-# create a function to flip dates from columns to rows 
+# create a function to flip dates from columns to rows
 flip_dataset <- function(input_filename) {
 
   # read data
@@ -33,7 +33,7 @@ colnames(our_dataset) <- col_names_char
 # flip
 our_dataset %>%
   pivot_longer(!geo_type, !region, !transportation_type, !alternative_name,
-               !sub-region, !country, names_to = "dates",
+               !sub.region, !country, names_to = "dates",
                values_to = "traffic_percentage")
 
 # get number of columns
@@ -46,7 +46,7 @@ if (ncol_final >= ncol_initial) {
 
 # save
 fn <- sub(".csv", "", input_filename)
-fp <- paste(fn, "_long.csv",sep = "")
+fp <- paste(fn, "_long.csv", sep = "")
 write.csv(fp)
 }
 
