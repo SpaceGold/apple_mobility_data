@@ -25,7 +25,7 @@ us_state_names_vector <- us_states$full_name
 # assign US state indices
 for (subregion_index in subregion_vector) {
   
-  # concatenate US state full_name by index
+  # concatenate US state to vector by full_name, index
   us_states_to_analyze <- c(us_states_to_analyze, us_state_names_vector
                             [subregion_index])
 }

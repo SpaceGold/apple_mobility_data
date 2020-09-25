@@ -9,16 +9,27 @@ library("dplyr")
 
 # We want to count cities and counties that have Apple mobility data in a state
 
-# load the dataset from the previous script
-input_file_name <- "output/covid_mobility_data_Nevada.csv"
-state_data <- read.csv(input_file_name)
+# set folder to check, e.g. /output/
+folder <- "output/"
+folder_contents <- dir(folder)
 
-# starting off with dplyr chains
-count_cities_counties_transit <- state_data %>%
-  select(geo_type, region, transportation_type) %>%
-  group_by(geo_type, transportation_type) %>%
-  tally()
+for (subregion_data in folder_contents) {
 
-# write out the result of dyplr chain
-write.csv(count_cities_counties_transit,
-          "output/nevada_cities_counties_counts.csv")
+  # NOTE: don't do paste (folder, folder_contents[subregion_data]) THIS time.
+  us_state_fn <- paste(folder, subregion_data, sep = "")
+  us_state_data <- read.csv(us_state_fn)
+
+  # extract state name for naming output from title
+  us_state_name <- us_state_data$sub.region[1]
+
+  # starting off with dplyr chains
+  count_cities_counties_transit <- us_state_data %>%
+    select(geo_type, region, transportation_type) %>%
+    group_by(geo_type, transportation_type) %>%
+    tally()
+
+  # write out the result of dyplr chain
+  write.csv(count_cities_counties_transit,
+            paste("output/", us_state_name, "_cities_counties_counts.csv",
+                  sep = ""))
+}
