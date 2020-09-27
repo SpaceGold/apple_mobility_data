@@ -10,24 +10,19 @@
 # import a list of 51 US states and randomly select 5-10 of them to analyze.
 
 input_filename <- "data/raw_data/applemobilitytrends-2020-09-19.csv"
-us_states <- read.csv("data/raw_data/all_US_state_names.csv",
-                      fileEncoding = 'UTF-8-BOM')
 
 # RNG from 5 to 9 subregions, rounded; RNG that many subregions
-subregion_vector <- round(runif(round(runif(1,5,9)), 1, 51))
+subregion_vector <- round(runif(round(runif(1,5,9)), 1, 50))
 
 # create empty vector of US states to analyze
 us_states_to_analyze <- vector()
 
-# create vector from full_name column of us_states for analysis
-us_state_names_vector <- us_states$full_name
 
 # assign US state indices
 for (subregion_index in subregion_vector) {
   
   # concatenate US state to vector by full_name, index
-  us_states_to_analyze <- c(us_states_to_analyze, us_state_names_vector
-                            [subregion_index])
+  us_states_to_analyze <- c(us_states_to_analyze, state.name[subregion_index])
 }
 
 # read in complete mobility dataset
@@ -45,6 +40,7 @@ for (subregion in us_states_to_analyze) {
   output_data <- all_covid_data[all_covid_data$sub.region == subregion, ]
   
   # save file
+  subregion <- gsub("\\s", "_", subregion)
   full_output_path <- paste0("output/", subregion, "_covid_mobility_data_",
                              ".csv", sep = "")
   write.csv(output_data, file = full_output_path)
