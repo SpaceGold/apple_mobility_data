@@ -18,6 +18,7 @@ subset_mobility_data_to_state <- function(input_filename, subregion) {
   output_data <- all_covid_data[all_covid_data$sub.region == subregion, ]
 
   # save file
+  subregion <- gsub("\\s", "_", subregion)
   full_output_path <- paste0("output/", "covid_mobility_data_", subregion,
                              ".csv", sep = "")
   write.csv(output_data, file = full_output_path)

@@ -29,6 +29,7 @@ count_cities_counties <- function(input_filename) {
     tally()
 
   # write out the result of dyplr chain
+  subregion <- gsub("\\s", "_", subregion)
   write.csv(count_cities_counties_transit,
           paste("output/", subregion, "_cities_counties_counts.csv", sep = ""))
 }

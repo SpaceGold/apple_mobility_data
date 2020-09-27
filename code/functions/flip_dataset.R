@@ -29,15 +29,16 @@ flip_dataset <- function(input_filename) {
 
   # get number of columns
   ncol_final <- ncol(final_dataset)
-  
-  # Defensive check: is dataframe longer and narrower?
+
+    # Defensive check: is dataframe longer and narrower?
   if (ncol_final >= ncol_initial) {
     stop("ERROR: Flipping date and percentage data failed. Check raw data.")
   }
-  
+
   # save
   fn <- sub(".csv", "", input_filename)
   fp <- paste(fn, "_long.csv", sep = "")
+  fp <- gsub("\\s", "_", fp)
   write_csv(final_dataset, fp)
 }
 
