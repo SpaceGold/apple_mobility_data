@@ -10,9 +10,8 @@
 # Insert filename or rewrite this to run on all *applemobilitytrends.csv
 input_filename <- "data/raw_data/applemobilitytrends-2020-09-19.csv"
 
-# Run the function 
+# Run the function
 flip_dataset(input_filename)
 
 # Report
 print("Done.")
-

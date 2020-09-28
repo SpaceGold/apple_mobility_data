@@ -12,7 +12,7 @@
 input_filename <- "data/raw_data/applemobilitytrends-2020-09-19.csv"
 
 # RNG from 5 to 9 subregions, rounded; RNG that many subregions
-subregion_vector <- round(runif(round(runif(1,5,9)), 1, 50))
+subregion_vector <- round(runif(round(runif(1, 5, 9)), 1, 50))
 
 # create empty vector of US states to analyze
 us_states_to_analyze <- vector()
@@ -20,7 +20,7 @@ us_states_to_analyze <- vector()
 
 # assign US state indices
 for (subregion_index in subregion_vector) {
-  
+
   # concatenate US state to vector by full_name, index
   us_states_to_analyze <- c(us_states_to_analyze, state.name[subregion_index])
 }
@@ -35,10 +35,9 @@ if ("sub.region" %in% names(all_covid_data) == 0) {
 
 # subset raw data into multiple subregion dataframes
 for (subregion in us_states_to_analyze) {
-  
-  #subregion = us_states_to_analyze[subregion_index]
+
   output_data <- all_covid_data[all_covid_data$sub.region == subregion, ]
-  
+
   # save file
   subregion <- gsub("\\s", "_", subregion)
   full_output_path <- paste0("output/", subregion, "_covid_mobility_data_",
