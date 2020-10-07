@@ -7,19 +7,22 @@
 # create a function to subset any subregion/US state out of the full dataset
 # this should also create an output CSV with the name of the subregion
 subset_mobility_data_to_state <- function(input_filename, subregion) {
-    # read in complete mobility dataset
-  all_covid_data <- read.csv(input_filename)
+
+  # read in complete mobility dataset
+  all_covid_data <- read_csv(input_filename)
+
+  # subset all data to single sub-region (column 5)
+  output_data <- all_covid_data %>%
+    dplyr::filter(`sub-region` == subregion)
+
   # check that subsetted data has data in it
-  subregion_data <- all_covid_data[all_covid_data$sub.region == subregion, ]
-  if (nrow(subregion_data == 0)) {
+  if (nrow(output_data) == 0) {
     stop("ERROR: No rows matching subregion query.")
   }
-  # subset all data to single sub.region (column 5)
-  output_data <- all_covid_data[all_covid_data$sub.region == subregion, ]
 
   # save file
   subregion <- gsub("\\s", "_", subregion)
-  full_output_path <- paste0("output/", "covid_mobility_data_", subregion,
-                             ".csv", sep = "")
-  write.csv(output_data, file = full_output_path)
+  full_output_path <- paste0("output/subsetted_states_wide/",
+                             subregion,"_", core_name, ".csv")
+  write_csv(output_data, full_output_path)
 }

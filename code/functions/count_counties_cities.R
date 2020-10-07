@@ -4,15 +4,11 @@
 # Adam Zimmerman, September 23, 2020
 # adam.eric.zimmerman@gmail.com
 
-# load dyplyr, readr
-library("dplyr")
-library("readr")
-
 # create a function to take in a csv of mobility data and return city tally
-count_cities_counties <- function(input_filename) {
+count_cities_counties <- function(file_name_in) {
 
   # load the dataset from the previous script
-  subregion_data <- read_csv(input_filename)
+  subregion_data <- read_csv(file_name_in)
 
   # identify state/subregion for saved file
   subregion <- subregion_data$sub.region[1]
