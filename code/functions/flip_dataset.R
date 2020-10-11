@@ -15,7 +15,7 @@ flip_dataset <- function(file_name_in) {
 
   # flip. Currently this is clumsy, relying on literal names
   final_dataset <- our_dataset %>%
-    pivot_longer("2020-01-13":"2020-09-19", names_to = "dates",
+    pivot_longer("2020-01-13":"2020-09-24", names_to = "date",
                  values_to = "rel_mobility")
 
   # get number of columns
@@ -28,8 +28,7 @@ flip_dataset <- function(file_name_in) {
   }
 
   # save without spaces in name
-  fn <- sub("wide", "long", file_name_in)
-  fp <- paste0("subsetted_states_long", fn, "_long.csv", sep = "")
+  fp <- sub("wide", "long", file_name_in)
   fp <- gsub("\\s", "_", fp)
   write_csv(final_dataset, fp)
 }

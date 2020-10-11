@@ -10,9 +10,6 @@ count_cities_counties <- function(file_name_in) {
   # load the dataset from the previous script
   subregion_data <- read_csv(file_name_in)
 
-  # identify state/subregion for saved file
-  subregion <- subregion_data$sub.region[1]
-
   # defensive programming check: do headers contain "geo_type"?
   if ("geo_type" %in% names(subregion_data) == 0) {
     stop("Imported CSV is missing correct headers; please review.")
@@ -25,7 +22,9 @@ count_cities_counties <- function(file_name_in) {
     tally()
 
   # write out the result of dyplr chain
-  subregion <- gsub("\\s", "_", subregion)
-  write.csv(count_cities_counties_transit,
-          paste("output/", subregion, "_cities_counties_counts.csv", sep = ""))
-}
+  write_csv(count_cities_counties_transit,
+          paste("output/subsetted_states_tallied/", state_no_spaces, "_cities_counties_counts.csv", sep = ""))
+
+  # return output
+  return(count_cities_counties_transit)
+  }
