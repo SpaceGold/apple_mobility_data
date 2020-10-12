@@ -15,7 +15,7 @@ flip_dataset <- function(file_name_in) {
 
   # flip. Currently this is clumsy, relying on literal names
   final_dataset <- our_dataset %>%
-    pivot_longer("2020-01-13":"2020-09-24", names_to = "date",
+    pivot_longer("2020-01-13":"2020-10-10", names_to = "date",
                  values_to = "rel_mobility")
 
   # get number of columns

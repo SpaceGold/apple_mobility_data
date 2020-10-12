@@ -7,7 +7,7 @@ bibliography: references.bib
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, message = TRUE)
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
 ```
 
 ## Setup
@@ -22,7 +22,7 @@ state_no_spaces <- gsub(state_to_analyze,
                         replacement = "_")
 
 # set the name of the global data file to use
-global_file_to_process <- "data/raw_data/applemobilitytrends-2020-09-24.csv"
+global_file_to_process <- "data/raw_data/applemobilitytrends-2020-10-10.csv"
 
 # extract core name for output file naming
 core_name <- tools::file_path_sans_ext(basename(global_file_to_process))
@@ -74,9 +74,9 @@ long_subset <- flip_dataset(
 # data available
 tallied_subset <- count_cities_counties(
   file_name_in = paste0("output/subsetted_states_wide/",
-                      core_name,
-                      "_",
                       state_no_spaces,
+                      "_",
+                      core_name,
                       ".csv"))
 ```
 
@@ -98,10 +98,10 @@ tallied_plot <- ggplot(data = tallied_subset,
 
 ggsave(plot = tallied_plot,
        filename = paste0("output/figures/",
-                         core_name,
-                         "_",
                          state_no_spaces,
-                         "_tallied_plog.png"))
+                         "_",
+                         core_name,
+                         "_tallied_plot.png"))
 
 tallied_plot
 ```
@@ -124,9 +124,9 @@ timeseries_plot <- long_subset %>%
 
 ggsave(plot = timeseries_plot,
        filename = paste0("output/figures/",
-                         core_name,
-                         "_",
                          state_no_spaces,
+                         "_",
+                         core_name,
                          "_timeseries_plot.png"))
 
 timeseries_plot
