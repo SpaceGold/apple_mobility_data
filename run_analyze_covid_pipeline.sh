@@ -10,6 +10,12 @@
 # adam.eric.zimmerman@gmail.com
 # October 12, 2020
 
+if [ $# -eq 0 ]
+then
+  echo "To run this script, supply state and raw data .csv params."
+  exit 1
+fi 
+
 Rscript -e "rmarkdown::render('Analysis.rmd',
             params = list(state = '$1',
             data = '$2'))"
