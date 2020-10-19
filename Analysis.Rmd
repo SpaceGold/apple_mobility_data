@@ -145,8 +145,8 @@ lockdown_plot <- long_subset %>%
   geom_boxplot() +
   labs(title = paste("Weekly statewide mean relative mobility levels in",
                      state_to_analyze,
-                     "before COVID"),
-       x = paste("Day of the Week Pre-COVID"),
+                     "before and during COVID"),
+       x = paste("Day of the Week"),
        y = "Mean relative mobility") +
   facet_wrap(. ~ factor(ifelse(lubridate::month(date) < 3,
                         "Pre-COVID", # facet label for TRUE
