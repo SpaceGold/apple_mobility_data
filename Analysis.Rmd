@@ -137,34 +137,30 @@ timeseries_plot
 # transit type, with day of the week on the x axis and mean relative mobility
 # on the y axis. The first graph should be from January and the second graph # # should be aggregate from March to April
 
-pre_covid_period <- "2020-01-19:2020-02-16"
-lockdown_period <- "2020-03-22:2020-04-19"
-mydates <- as.Date(c("2020-03-22", "2020-04-19"))
-
 pre_covid_plot <- long_subset %>%
   group_by(date) %>%
-  filter(between(date, mydates[1], mydates[2])) %>%
+  filter(lubridate::month(date) < 3) %>%
   summarize(mean_mobility = mean(rel_mobility)) %>%
   ggplot(aes(x = lubridate::wday(date, label = TRUE),
              y = mean_mobility)) +
-  geom_line() +
+  geom_boxplot() +
   labs(title = paste("Weekly statewide mean relative mobility levels in",
                      state_to_analyze,
                      "before COVID"),
-       x = paste("Day of the Week", pre_covid_period),
+       x = paste("Day of the Week Pre-COVID"),
        y = "Mean relative mobility")
 
 lockdown_plot <- long_subset %>%
   group_by(date) %>%
-  filter(between(date, mydates[1], mydates[2])) %>%
+  filter(lubridate::month(date) > 3) %>%
   summarize(mean_mobility = mean(rel_mobility)) %>%
   ggplot(aes(x = lubridate::wday(date, label = TRUE),
              y = mean_mobility)) +
-  geom_line() +
+  geom_boxplot() +
   labs(title = paste("Weekly statewide mean relative mobility levels in",
                      state_to_analyze,
                      "during COVID"),
-       x = paste("Day of the Week", lockdown_period),
+       x = paste("Day of the Week during COVID"),
        y = "Mean relative mobility")
 
 ggsave(plot = pre_covid_plot,
