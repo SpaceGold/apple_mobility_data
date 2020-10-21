@@ -17,3 +17,7 @@ Currently uses dplyr to work with some of the tabular data. Eventually the proje
 * 2020-08-31 Data first downloaded.
  * The first verison of the project is used for subsetting the data by subregion/state.
 * 2020-09-14: A new version of the data was downloaded and the code was refactored to be more general and accept larger files.
+* 2020-10-07: Developed R markdown file that knits all functions together.
+* 2020-10-14: Adapted R markdown file to run from a bash script.
+* 2020-10-21: Introduced an analysis of COVID-19 sequencing data from a remote server.
+
