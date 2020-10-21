@@ -3,10 +3,13 @@
 Adam Zimmerman
 adam.eric.zimmerman@gmail.com
 
-This project interprets data from Apple Maps, available at:
+This project interpreted data from Apple Maps, available at:
 https://covid19.apple.com/mobility
 
-Currently uses dplyr to work with some of the tabular data. Eventually the project will incorporate ggplot2 for visualization.
+This project also interprets COVID-19 sequencing data, available at:
+https://www.ncbi.nlm.nih.gov/sars-cov-2/
+
+Current focus is on using ssh, Tmux, zgrep, zcat, and bioawk on fasta data.
 
 ### Log
 * 2020-09-25 Pushed function flip_dataset.R to GitHub, successfully debugging. It uses pivot_longer() to tidy up the 250x4700 mobility dataframe into an 8x100k+ dataframe.
