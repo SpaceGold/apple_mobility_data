@@ -24,6 +24,22 @@ then
   exit 1
 fi
 
-fasta_gz=$1
+# Assign input file, e.g. 150 MB compressed .fasta
+fasta_gz_input=$1
+
+# Count and report new sequence symbols to tally sequence count
+sequence_count=$(zgrep -c "^>" fasta_gz_input)
+echo $sequence_count "sequences found"
+
+# Tally and report number of sequences in the dataset from each
+# country, sorting the output from largest to smallest.
+# Use uniq to tag and tally each country as it appears in lines with > 
+# Identify string that follows ">"*|*|, and ends in |
+# pipe bioawk comments into sed to remove all but that
+# pipe that into wc -l?
+# bioawk -c fastx '/country/ {print $comment'} filepath | sed
+
+# Pipe just opening lines with grep. Don't store whole lines!
+zgrep "^>" $fasta_gz_input | \
 
 
