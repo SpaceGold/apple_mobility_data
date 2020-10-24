@@ -41,5 +41,9 @@ echo $sequence_count "sequences found"
 
 # Pipe just opening lines with grep. Don't store whole lines!
 zgrep "^>" $fasta_gz_input | \
+# Replace | with \t
 
 
+# then strip everything between ^ and second |
+sed -E 's/.*?\|.*?\|//g'
+# then tally all uniques and prin
