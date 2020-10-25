@@ -28,7 +28,7 @@ fi
 fasta_gz_input=$1
 
 # Pipe just opening lines with grep. Don't store whole lines!
-zgrep "^>" $fasta_gz_input | \
+zgrep "^>" "$fasta_gz_input" | \
 
 # Replace space with \s
 
