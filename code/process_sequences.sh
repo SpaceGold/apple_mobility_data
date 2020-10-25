@@ -36,8 +36,8 @@ zgrep "^>" $fasta_gz_input | \
 sed -E 's/\|/\t/g' | \
 
 # parse 3rd tab
-awk 'BEGIN{FS="\t"}; {print $3}' #| \
+awk 'BEGIN{FS="\t"}; {print $3}' | \
 
 # then tally all uniques, sort and print
-#sort | \
-#uniq -c
+sort | \
+uniq -c
