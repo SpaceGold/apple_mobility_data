@@ -30,13 +30,14 @@ fasta_gz_input=$1
 # Pipe just opening lines with grep. Don't store whole lines!
 zgrep "^>" $fasta_gz_input | \
 
+# Replace space with \s
+
 # Replace | with \t
 sed -E 's/\|/\t/g' | \
 
 # parse 3rd tab
-awk '{print $4}' #| \
+awk 'BEGIN{FS="\t"}; {print $3}' #| \
 
 # then tally all uniques, sort and print
 #sort | \
-#uniq
-
+#uniq -c
