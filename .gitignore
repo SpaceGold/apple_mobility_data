@@ -3,4 +3,4 @@
 .RData
 .Ruserdata
 .code/temp
-..process_sequences.sh.shp
+.code/.process_sequences.sh.shp
