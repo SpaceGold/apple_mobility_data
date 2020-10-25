@@ -2,7 +2,7 @@
 
 # A bash script to analyze sequencing data from COVID-19.
 
-# This script expects one parameter, a fasta file.
+# This script expects one parameter, a fasta file, with | chars.
 
 # This script outputs the total number of sequences in the file.
 # It also tallies the number of sequences in the dataset from each
@@ -27,14 +27,16 @@ fi
 # Assign input file, e.g. 150 MB compressed .fasta
 fasta_gz_input=$1
 
-# Count and report new sequence symbols to tally sequence count
-sequence_count=$(zgrep -c "^>" fasta_gz_input)
-echo $sequence_count "sequences found"
-
 # Pipe just opening lines with grep. Don't store whole lines!
 zgrep "^>" $fasta_gz_input | \
+
 # Replace | with \t
-sed -E 's/\|/\t/g'
-# parse tabs with awk/bioawk
-# then strip everything
+sed -E 's/\|/\t/g' #| \
+
+# parse 3rd tab
+#awk '$3' | \
+
 # then tally all uniques, sort and print
+#sort | \
+#uniq
+
