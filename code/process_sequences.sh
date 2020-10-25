@@ -41,4 +41,4 @@ awk 'BEGIN{FS="\t"}; {print $3}' | \
 # then tally all uniques, sort and print
 sort | \
 uniq -c | \
-sort
+sort -nr
