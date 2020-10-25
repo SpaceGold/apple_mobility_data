@@ -31,10 +31,10 @@ fasta_gz_input=$1
 zgrep "^>" $fasta_gz_input | \
 
 # Replace | with \t
-sed -E 's/\|/\t/g' #| \
+sed -E 's/\|/\t/g' | \
 
 # parse 3rd tab
-#awk '$3' | \
+awk '{print $4}' #| \
 
 # then tally all uniques, sort and print
 #sort | \
