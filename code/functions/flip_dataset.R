@@ -8,14 +8,14 @@
 flip_dataset <- function(file_name_in) {
 
   # read data
-  our_dataset <- read_csv(file_name_in)
+  our_dataset <- readr::read_csv(file_name_in)
 
   # get number of columns
   ncol_initial <- ncol(our_dataset)
 
   # flip. Currently this is clumsy, relying on literal names
   final_dataset <- our_dataset %>%
-    pivot_longer("2020-01-13":"2020-10-10", names_to = "date",
+    tidyr::pivot_longer("2020-01-13":"2020-10-10", names_to = "date",
                  values_to = "rel_mobility")
 
   # get number of columns
@@ -30,5 +30,5 @@ flip_dataset <- function(file_name_in) {
   # save without spaces in name
   fp <- sub("wide", "long", file_name_in)
   fp <- gsub("\\s", "_", fp)
-  write_csv(final_dataset, fp)
+  readr::write_csv(final_dataset, fp)
 }

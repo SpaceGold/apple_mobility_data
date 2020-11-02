@@ -8,7 +8,7 @@
 count_cities_counties <- function(file_name_in) {
 
   # load the dataset from the previous script
-  subregion_data <- read_csv(file_name_in)
+  subregion_data <- readr::read_csv(file_name_in)
 
   # defensive programming check: do headers contain "geo_type"?
   if ("geo_type" %in% names(subregion_data) == 0) {
@@ -17,12 +17,12 @@ count_cities_counties <- function(file_name_in) {
 
   # filter data with dplyr chains
   count_cities_counties_transit <- subregion_data %>%
-    select(geo_type, region, transportation_type) %>%
-    group_by(geo_type, transportation_type) %>%
-    tally()
+    dplyr::select(geo_type, region, transportation_type) %>%
+    dplyr::group_by(geo_type, transportation_type) %>%
+    dplyr::tally()
 
   # write out the result of dyplr chain
-  write_csv(count_cities_counties_transit,
+  readr::write_csv(count_cities_counties_transit,
           paste("output/subsetted_states_tallied/", state_no_spaces,
                 "_cities_counties_counts.csv", sep = ""))
 
