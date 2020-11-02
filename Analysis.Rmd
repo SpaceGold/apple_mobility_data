@@ -135,44 +135,24 @@ timeseries_plot
 ```{r plot-special}
 # produce pre- and post- lockdown graphs of 3 lines each, one line for each
 # transit type, with day of the week on the x axis and mean relative mobility
-# on the y axis. The first graph should be from January and the second graph # # should be aggregate from March to April
-
-pre_covid_period <- "2020-01-19:2020-02-16"
-lockdown_period <- "2020-03-22:2020-04-19"
-mydates <- as.Date(c("2020-03-22", "2020-04-19"))
-
-pre_covid_plot <- long_subset %>%
-  group_by(date) %>%
-  filter(between(date, mydates[1], mydates[2])) %>%
-  summarize(mean_mobility = mean(rel_mobility)) %>%
-  ggplot(aes(x = lubridate::wday(date, label = TRUE),
-             y = mean_mobility)) +
-  geom_line() +
-  labs(title = paste("Weekly statewide mean relative mobility levels in",
-                     state_to_analyze,
-                     "before COVID"),
-       x = paste("Day of the Week", pre_covid_period),
-       y = "Mean relative mobility")
-
+# on the y axis. The first graph should be from January and the second graph
+# should be aggregate from March to April
 lockdown_plot <- long_subset %>%
   group_by(date) %>%
-  filter(between(date, mydates[1], mydates[2])) %>%
   summarize(mean_mobility = mean(rel_mobility)) %>%
   ggplot(aes(x = lubridate::wday(date, label = TRUE),
              y = mean_mobility)) +
-  geom_line() +
+  geom_boxplot() +
   labs(title = paste("Weekly statewide mean relative mobility levels in",
                      state_to_analyze,
-                     "during COVID"),
-       x = paste("Day of the Week", lockdown_period),
-       y = "Mean relative mobility")
-
-ggsave(plot = pre_covid_plot,
-       filename = paste0("output/figures/",
-                         state_no_spaces,
-                         "_",
-                         core_name,
-                         "_pre_covid_plot.png"))
+                     "before and during COVID"),
+       x = paste("Day of the Week"),
+       y = "Mean relative mobility") +
+  facet_wrap(. ~ factor(ifelse(lubridate::month(date) < 3,
+                        "Pre-COVID", # facet label for TRUE
+                        "During COVID"), # facet label for FALSE
+                        levels = c("Pre-COVID", # switch order so pre goes first
+                                   "During COVID")))
 
 ggsave(plot = lockdown_plot,
        filename = paste0("output/figures/",
@@ -181,7 +161,6 @@ ggsave(plot = lockdown_plot,
                          core_name,
                          "_lockdown_plot.png"))
 
-pre_covid_plot
 lockdown_plot
 ```
 
