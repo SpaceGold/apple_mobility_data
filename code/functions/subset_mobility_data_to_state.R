@@ -23,6 +23,6 @@ subset_mobility_data_to_state <- function(input_filename, subregion) {
   # save file
   subregion <- gsub("\\s", "_", subregion)
   full_output_path <- paste0("output/subsetted_states_wide/",
-                             subregion,"_", core_name, ".csv")
+                             subregion, "_", core_name, ".csv")
   write_csv(output_data, full_output_path)
 }

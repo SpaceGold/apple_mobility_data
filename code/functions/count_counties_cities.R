@@ -23,7 +23,8 @@ count_cities_counties <- function(file_name_in) {
 
   # write out the result of dyplr chain
   write_csv(count_cities_counties_transit,
-          paste("output/subsetted_states_tallied/", state_no_spaces, "_cities_counties_counts.csv", sep = ""))
+          paste("output/subsetted_states_tallied/", state_no_spaces,
+                "_cities_counties_counts.csv", sep = ""))
 
   # return output
   return(count_cities_counties_transit)
