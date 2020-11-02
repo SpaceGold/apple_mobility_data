@@ -9,7 +9,7 @@
 subset_mobility_data_to_state <- function(input_filename, subregion) {
 
   # read in complete mobility dataset
-  all_covid_data <- read_csv(input_filename)
+  all_covid_data <- readr::read_csv(input_filename)
 
   # subset all data to single sub-region (column 5)
   output_data <- all_covid_data %>%
@@ -23,6 +23,6 @@ subset_mobility_data_to_state <- function(input_filename, subregion) {
   # save file
   subregion <- gsub("\\s", "_", subregion)
   full_output_path <- paste0("output/subsetted_states_wide/",
-                             subregion,"_", core_name, ".csv")
-  write_csv(output_data, full_output_path)
+                             subregion, "_", core_name, ".csv")
+  readr::write_csv(output_data, full_output_path)
 }
