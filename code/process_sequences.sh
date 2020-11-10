@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 # A bash script to analyze sequencing data from COVID-19.
 
 # This script expects one parameter, a fasta file, with | chars.
