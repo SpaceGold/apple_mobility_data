@@ -148,12 +148,12 @@ stopifnot(ncol(seqs_by_country) == 2)
 # and the counts of sequences in each on the x, sorted by count
 seq_count_plot <- ggplot(data = seqs_by_country,
                          aes(x = count,
-                             y = reorder(country, count)) +
+                             y = reorder(country, count))) +
   geom_col() +
   scale_x_log10() +
   labs(title = "Count of SARS-CoV-2 sequences per country",
        x = "Count of Sequences",
-       y = "Country Name"))
+       y = "Country Name")
 
 ggsave(plot = seq_count_plot,
        filename = "output/figures/seq_count_plot.png")
