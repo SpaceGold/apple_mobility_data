@@ -18,7 +18,7 @@ $(SEQ_SUMMARY): code/process_sequences.sh $(SEQ_DATA)
 clean:
 	rm -fv output/*.html
 	rm -fv Analysis.html
-	rm -fv output/*summary.txt
+	rm -fv output/*tallies.txt
 	rm -fv output/*/*.csv
 	rm -fv output/*/*.png
 
