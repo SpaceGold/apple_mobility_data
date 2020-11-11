@@ -21,3 +21,5 @@ clean:
 	rm -fv output/*summary.txt
 	rm -fv ouput/*/*.csv
 	rm -fv output/*/*.png
+
+.PHONY: all clean
