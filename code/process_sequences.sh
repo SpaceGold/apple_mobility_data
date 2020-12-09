@@ -20,10 +20,14 @@ then
   echo "To run this script, supply a fasta.gz file of sequences."
   exit 1
 fi
-if [ $# -gt 1 ]
+
+# Check for ALL
+if [ "$#" -eq 2 ]
 then
-  echo "Too many parameters passed. Supply 1 fasta.gz file."
-  exit 1
+  if [ $2 == 'ALL' ]
+  then
+    echo "ALL file detected."
+  fi
 fi
 
 # Assign input file, e.g. 150 MB compressed .fasta
