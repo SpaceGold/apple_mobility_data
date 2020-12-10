@@ -14,7 +14,7 @@ all: $(REPORT_PATH)
 $(REPORT_PATH): Analysis.Rmd references.bib $(R_FUNCTIONS) $(SEQ_SUMMARY) $(MOBILITY_DATA) run_analyze_covid_pipeline.sh
 	bash run_analyze_covid_pipeline.sh "$(STATE)" "$(MOBILITY_DATA)" "$(SEQ_SUMMARY)"
 $(SEQ_SUMMARY): code/process_sequences.sh $(SEQ_DATA)
-	bash code/process_sequences.sh "$(SEQ_DATA)" "ALL" > "$(SEQ_SUMMARY)"
+	bash code/process_sequences.sh "$(SEQ_DATA)" > "$(SEQ_SUMMARY)"
 clean:
 	rm -fv output/*.html
 	rm -fv Analysis.html

@@ -24,23 +24,22 @@ fi
 # Assign input file, e.g. 150 MB compressed .fasta
 fasta_gz_input=$1
 
-# If 'ALL' is passed, give a total count of sequences
+# If 'ALL' is passed, give a total count of sequences.
+# This alters the output format to rich text, no longer tab separated table
 if [ "$#" -eq 2 ]
 then
-  if [ $2 == 'ALL' ]
+  if [ "$2" == "ALL" ]
   then
     # Report
-    echo -e "The total number of sequences is:"
+    echo "The total number of sequences is:"
 
     # count lines
     zgrep "^>" "$fasta_gz_input" | \
     wc -l
-    echo -e " "
+    echo -e "\n The numbers of sequences by country are:"
+
   fi
 fi
-
-# Report
-echo -e "The numbers of sequences by country are:"
 
 # Pipe just opening lines with grep. Don't store whole lines!
 zgrep "^>" "$fasta_gz_input" | \
