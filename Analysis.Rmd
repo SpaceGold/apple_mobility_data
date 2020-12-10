@@ -7,10 +7,11 @@ bibliography: references.bib
 params:
   state: "South Carolina"
   data: "data/raw_data/applemobilitytrends-2020-10-10.csv"
+  seqdata: "output/covid_sequence_tallies.txt"
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+knitr::opts_chunk$set(echo = FALSE, message = FALSE)
 ```
 
 ## Setup
@@ -135,6 +136,64 @@ ggsave(plot = timeseries_plot,
 timeseries_plot
 ```
 
+```{r plot-sequence-data, fig.height=12}
+# read in the count of the sequences by country (2 columns)
+seqs_by_country <- readr::read_table(params$seqdata,
+                                     col_names = c("count",
+                                                   "country"))
+# check for two columns
+stopifnot(ncol(seqs_by_country) == 2)
+
+# make a sideways barplot, log scale x axis, with countries on the y
+# and the counts of sequences in each on the x, sorted by count
+seq_count_plot <- ggplot(data = seqs_by_country,
+                         aes(x = count,
+                             y = reorder(country, count))) +
+  geom_col() +
+  scale_x_log10() +
+  labs(title = "Count of SARS-CoV-2 sequences per country",
+       x = "Count of Sequences",
+       y = "Country Name")
+
+ggsave(plot = seq_count_plot,
+       filename = "output/figures/seq_count_plot.png")
+
+seq_count_plot
+
+```
+
+```{r plot-special}
+# produce pre- and post- lockdown graphs of 3 lines each, one line for each
+# transit type, with day of the week on the x axis and mean relative mobility
+# on the y axis. The first graph should be from January and the second graph
+# should be aggregate from March to April
+lockdown_plot <- long_subset %>%
+  group_by(date) %>%
+  summarize(mean_mobility = mean(rel_mobility)) %>%
+  ggplot(aes(x = lubridate::wday(date, label = TRUE),
+             y = mean_mobility)) +
+  geom_boxplot() +
+  labs(title = paste("Weekly statewide mean relative mobility levels in",
+                     state_to_analyze,
+                     "before and during COVID"),
+       x = paste("Day of the Week"),
+       y = "Mean relative mobility") +
+  facet_wrap(. ~ factor(ifelse(lubridate::month(date) < 3,
+                        "Pre-COVID", # facet label for TRUE
+                        "During COVID"), # facet label for FALSE
+                        levels = c("Pre-COVID", # switch order so pre goes first
+                                   "During COVID")))
+
+ggsave(plot = lockdown_plot,
+       filename = paste0("output/figures/",
+                         state_no_spaces,
+                         "_",
+                         core_name,
+                         "_lockdown_plot.png"))
+
+lockdown_plot
+```
+
 ## Session Info
 
 ```{r session-info}
@@ -142,4 +201,3 @@ devtools::session_info()
 ```
 
 ## Sources Cited
-

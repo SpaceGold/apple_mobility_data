@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 # A bash script to analyze sequencing data from COVID-19.
 
 # This script expects one parameter, a fasta file, with | chars.
@@ -18,19 +20,29 @@ then
   echo "To run this script, supply a fasta.gz file of sequences."
   exit 1
 fi
-if [ $# -gt 1 ]
-then
-  echo "Too many parameters passed. Supply 1 fasta.gz file."
-  exit 1
-fi
 
 # Assign input file, e.g. 150 MB compressed .fasta
 fasta_gz_input=$1
 
+# If 'ALL' is passed, give a total count of sequences.
+# This alters the output format to rich text, no longer tab separated table
+if [ "$#" -eq 2 ]
+then
+  if [ "$2" == "ALL" ]
+  then
+    # Report
+    echo "The total number of sequences is:"
+
+    # count lines
+    zgrep "^>" "$fasta_gz_input" | \
+    wc -l
+    echo -e "\n The numbers of sequences by country are:"
+
+  fi
+fi
+
 # Pipe just opening lines with grep. Don't store whole lines!
 zgrep "^>" "$fasta_gz_input" | \
-
-# Replace space with \s
 
 # Replace | with \t
 sed -E 's/\|/\t/g' | \
@@ -38,7 +50,9 @@ sed -E 's/\|/\t/g' | \
 # parse 3rd tab
 awk 'BEGIN{FS="\t"}; {print $3}' | \
 
-# then tally all uniques, sort and print
+# then sort
 sort | \
+
+# sort and print uniques count (by country)
 uniq -c | \
 sort -nr
